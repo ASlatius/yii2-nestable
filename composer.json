@@ -1,6 +1,6 @@
 {
     "name": "slatiusa/yii2-nestable",
-    "description": "Implementation of nestable lists and nested set behavior using jquery.nestable plugin for Yii 2.0.",
+    "description": "Yii 2.0 implementation of nested set behavior using jquery.nestable plugin.",
     "keywords": ["yii2", "extension", "widget", "nestable", "sortable", "nested set", "behavior", "jquery"],
     "homepage": "https://github.com/Hommer101/yii2-nestable",
     "type": "yii2-extension",
