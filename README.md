@@ -25,7 +25,9 @@ to the ```require``` section of your `composer.json` file.
 
 ## Usage
 
-Be sure to add an action to your controller;
+Make sure you've attached the NestedSetsBehavior (creocoder/yii2-nested-sets) correctly to your model.
+Then add the node move handler to you controller by attaching the supplied action;
+
 ```
 use slatiusa\nestable\Nestable;
 
