@@ -36,7 +36,7 @@ class yourClass extends Controller
     public function actions() {
         return [
             'nodeMove' => [
-                'class' => 'slatiusa\nestable\NestableNodeMoveAction',
+                'class' => 'slatiusa\nestable\NodeMoveAction',
                 'modelName' => TreeModel::className(),
             ],
         ];

@@ -21,7 +21,7 @@ use creocoder\nestedsets\NestedSetsBehavior;
  * @author Arno Slatius <a.slatius@gmail.com>
  * @since 1.0
  */
-class NestableNodeMoveAction extends Action
+class NodeMoveAction extends Action
 {
     /** @var string class to use to locate the supplied data ids */
     public $modelName;
