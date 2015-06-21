@@ -306,7 +306,7 @@
                     id  : el.data('id'),
                     par : $(parent).data('id'),
                     lft : (prev.length ? prev.data('id') : 0),
-                    rgt : (next.length ? next.data('id') : 0),
+                    rgt : (next.length ? next.data('id') : 0)
                 }
             }).fail(function(jqXHR){
                 alert(jqXHR.responseText);
