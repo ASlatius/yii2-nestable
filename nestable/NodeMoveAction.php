@@ -57,7 +57,7 @@ class NodeMoveAction extends Action
 
         /* Get attribute names from model behaviour config */
         foreach($model->behaviors as $behavior) {
-            if (NestedSetsBehavior::className() == get_class($behavior) ) {
+            if ($behavior instanceof NestedSetsBehavior) {
                 $this->leftAttribute  = $behavior->leftAttribute;
                 $this->rightAttribute = $behavior->rightAttribute;
                 $this->treeAttribute  = $behavior->treeAttribute;
@@ -76,18 +76,22 @@ class NodeMoveAction extends Action
         ]);
 
         /* Calculate the depth change */
-        if ($model->parents(1)->one()->id != $par->id) {
+        if (null == $par) {
+            $depthDelta = -1;
+        } else if (null == $parent = $model->parents(1)->one()) {
+            $depthDelta = 0;
+        } else if ($parent->id != $par->id) {
             $depthDelta = $par->{$this->depthAttribute} - $model->{$this->depthAttribute} + 1;
         } else {
             $depthDelta = 0;
         }
         /* Calculate the left/right change */
         if (null == $lft) {
-            $model->nodeMove( ($par->{$this->leftAttribute} + 1), $depthDelta);
+            $model->nodeMove( (($par ? $par->{$this->leftAttribute} : 0) + 1), $depthDelta);
         } else if (null == $rgt) {
-            $model->nodeMove( ($lft->{$this->rightAttribute} + 1), $depthDelta);
+            $model->nodeMove( ($lft ? $lft->{$this->rightAttribute} : 0 + 1), $depthDelta);
         } else {
-            $model->nodeMove( $rgt->{$this->leftAttribute}, $depthDelta);
+            $model->nodeMove($rgt ? $rgt->{$this->leftAttribute} : 0, $depthDelta);
         }
 
         /* report new position */
