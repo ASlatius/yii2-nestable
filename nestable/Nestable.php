@@ -11,7 +11,6 @@ namespace slatiusa\nestable;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use gilek\gtreetable\models\TreeModel;
 
 /**
  * Create nestable lists using drag & drop for Yii 2.0.
@@ -166,7 +165,6 @@ class Nestable extends \kartik\base\Widget
 		$view = $this->getView();
 		NestableAsset::register($view);
 		$this->registerPlugin('nestable');
-		$id = '$("#' . $this->options['id'] . '")';
 	}
 
 	/**
