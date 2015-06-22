@@ -78,7 +78,7 @@ class NodeMoveAction extends Action
         /* Calculate the depth change */
         if (null == $par) {
             $depthDelta = -1;
-        } else if (null == $parent = $model->parents(1)->one()) {
+        } else if (null == ($parent = $model->parents(1)->one())) {
             $depthDelta = 0;
         } else if ($parent->id != $par->id) {
             $depthDelta = $par->{$this->depthAttribute} - $model->{$this->depthAttribute} + 1;
@@ -89,9 +89,9 @@ class NodeMoveAction extends Action
         if (null == $lft) {
             $model->nodeMove( (($par ? $par->{$this->leftAttribute} : 0) + 1), $depthDelta);
         } else if (null == $rgt) {
-            $model->nodeMove( ($lft ? $lft->{$this->rightAttribute} : 0 + 1), $depthDelta);
+            $model->nodeMove( (($lft ? $lft->{$this->rightAttribute} : 0) + 1), $depthDelta);
         } else {
-            $model->nodeMove($rgt ? $rgt->{$this->leftAttribute} : 0, $depthDelta);
+            $model->nodeMove(($rgt ? $rgt->{$this->leftAttribute} : 0), $depthDelta);
         }
 
         /* report new position */
