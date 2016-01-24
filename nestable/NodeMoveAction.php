@@ -75,23 +75,21 @@ class NodeMoveAction extends Action
             'depthAttribute' => $this->depthAttribute,
         ]);
 
-        /* Calculate the depth change */
-        if (null == $par) {
-            $depthDelta = -1;
-        } else if (null == ($parent = $model->parents(1)->one())) {
-            $depthDelta = 0;
-        } else if ($parent->id != $par->id) {
-            $depthDelta = $par->{$this->depthAttribute} - $model->{$this->depthAttribute} + 1;
-        } else {
-            $depthDelta = 0;
-        }
-        /* Calculate the left/right change */
-        if (null == $lft) {
-            $model->nodeMove( (($par ? $par->{$this->leftAttribute} : 0) + 1), $depthDelta);
-        } else if (null == $rgt) {
-            $model->nodeMove( (($lft ? $lft->{$this->rightAttribute} : 0) + 1), $depthDelta);
-        } else {
-            $model->nodeMove(($rgt ? $rgt->{$this->leftAttribute} : 0), $depthDelta);
+        /* Root/Append/Left/Right change */
+        if($this->treeAttribute&&is_null($par)&&!$model->isRoot()){
+            $model->makeRoot();
+        } else if(is_null($par)){
+            if(!is_null($rgt))
+                $model->insertBefore($rgt);
+            else if(!is_null($lft))
+                $model->insertAfter($lft);
+        }else{
+            if(!is_null($rgt))
+                $model->insertBefore($rgt);
+            else if(!is_null($lft))
+                $model->insertAfter($lft);
+            else
+                $model->appendTo($par);
         }
 
         /* report new position */
