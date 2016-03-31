@@ -25,6 +25,9 @@ class NodeMoveAction extends Action
 {
     /** @var string class to use to locate the supplied data ids */
     public $modelName;
+    
+    /** @var bool variable to support editing without possibility of creating a root elements */
+    public $rootable = true;
 
     /** @vars string the attribute names of the model that hold these attributes */
     private $leftAttribute;
@@ -76,7 +79,7 @@ class NodeMoveAction extends Action
         ]);
 
         /* Root/Append/Left/Right change */
-        if($this->treeAttribute&&is_null($par)&&!$model->isRoot()){
+        if($this->rootable&&$this->treeAttribute&&is_null($par)&&!$model->isRoot()){
             $model->makeRoot();
         } else if(is_null($par)){
             if(!is_null($rgt))
