@@ -181,7 +181,7 @@ class Nestable extends \kartik\base\Widget
     * @param $activeQuery \yii\db\ActiveQuery
     * @return array
     */
-    private function prepareItems($activeQuery)
+    protected function prepareItems($activeQuery)
     {
         $items = [];
         foreach ($activeQuery->all() as $model) {
